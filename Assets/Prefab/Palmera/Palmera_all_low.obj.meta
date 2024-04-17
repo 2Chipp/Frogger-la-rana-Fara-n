@@ -1,0 +1,202 @@
+fileFormatVersion: 2
+guid: cfa6cdf3ea3f1e74b81e7fbd1eadf38a
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hoja1_geo_Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grpMat
+    second: {fileID: 2100000, guid: ebdb9c4f167799a4fa8219b358b7499b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja2_geoMat
+    second: {fileID: 2100000, guid: 885304d59cb06b64b8ad1b9c344bcb6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja3_geoMat
+    second: {fileID: 2100000, guid: c27f84662e29f2745a8c199ba49a6282, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja4_geoMat
+    second: {fileID: 2100000, guid: b6d12dcb8f183464bb36b7df5e69e523, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja5_geoMat
+    second: {fileID: 2100000, guid: 7c37bd6330755a84abcd98065e19d2b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja6_geoMat
+    second: {fileID: 2100000, guid: 19b3b3f79634b514288a90bcf4349665, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja7_geoMat
+    second: {fileID: 2100000, guid: 03916c4b61cd6544db0e570e97c16faf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja8_geoMat
+    second: {fileID: 2100000, guid: cffa50d33597d0d44bd8ea64e598db8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Hojas02_geo_grp_Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Hoja9_geoMat
+    second: {fileID: 2100000, guid: 3b17b2246f3363c44b02a67db3e05d67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera02_smooth_Palmera02_geo_grp_Palmera_all_geo_grp_Palmera02_smooth_Tronco02_geoMat
+    second: {fileID: 2100000, guid: aa9b4aa6ae2b80f4da839e8558b3ee22, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hoja1_geo_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grpMat
+    second: {fileID: 2100000, guid: 13d9a6bfe0aa53f4cb500f1ca65bf251, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja2_geoMat
+    second: {fileID: 2100000, guid: 41b10044d4544894ebc63b2843603b9d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja3_geoMat
+    second: {fileID: 2100000, guid: 567ae8448143ab24f91e84dae80e491a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja4_geoMat
+    second: {fileID: 2100000, guid: 49ab87d1df64b6648a5330aac92e2195, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja5_geoMat
+    second: {fileID: 2100000, guid: 8c60ef33c62b5784092d3b569fd9ff01, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja6_geoMat
+    second: {fileID: 2100000, guid: 1e3c850638f925b41b913d585b43c33e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja7_geoMat
+    second: {fileID: 2100000, guid: e5352d22e9840bd47a29b14381dbc1eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja8_geoMat
+    second: {fileID: 2100000, guid: 43b791722a31a574aa1d457cc584b192, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Hojas01_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Hoja9_geoMat
+    second: {fileID: 2100000, guid: d5f8d1fcd8da74f4db8ee783815f3888, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Palmera_all_geo_grp_Palmera01_smooth_Palmera01_geo_grp_Palmera01_smooth_Tronco01_geoMat
+    second: {fileID: 2100000, guid: 97019b260a5135a4892920a6a702a8b3, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
