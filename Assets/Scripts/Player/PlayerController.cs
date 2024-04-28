@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour
 
     public int lives=5;
 
-    public AudioSource[] sFXAudioSource;
+    //public AudioSource[] sFXAudioSource;
+    [SerializeField] SoundManager soundManager;
 
     public GameObject myParticleSystem;
 
@@ -47,7 +48,12 @@ public class PlayerController : MonoBehaviour
     float speed;
     // Start is called before the first frame update
     void Start()
-    {        
+    {
+        Init();
+    }
+
+    void Init()
+    {
         animator = GetComponent<Animator>();
         gameGrid = FindObjectOfType<GameGrid>();
         mainCamera = Camera.main;
@@ -107,7 +113,7 @@ public class PlayerController : MonoBehaviour
                         if ((Input.GetMouseButtonDown(0)) && (temporalTarget != target) && (!restriction) && (cell.interactable) )
                         {
                             currentPoints += 50;
-                            PlaySFX("JumpSFX");
+                            soundManager.PlaySFX("JumpSFX");
                             target = temporalTarget;
                             onMovingPlatform = cell.moving;
                             jumpCooldown = jumpDuration ;
@@ -165,13 +171,13 @@ public class PlayerController : MonoBehaviour
                 currentPoints -= 100;
                 trigger = false;
             }
-            PlaySFX("CrashSFX");            
+            soundManager.PlaySFX("CrashSFX");            
             Debug.Log("Lives :" + lives);
             if (lives <= 0) Lose();
         }
         else if (other.tag == "Coin")
         {
-            PlaySFX("CoinSFX");
+            soundManager.PlaySFX("CoinSFX");
             trigger = false;
             currentPoints += 100;
             maxDistance = 29;
@@ -230,13 +236,13 @@ public class PlayerController : MonoBehaviour
             win = false;
             wF = true;
             Debug.Log("Win!!!");
-            PlaySFX("WinSFX");
+            soundManager.PlaySFX("WinSFX");
             if (currentPoints > maxPoints) maxPoints = currentPoints;
             PlayParticleSystem();
 
             winLosePanel.SetActive(true);
             camCurtain.SetActive(true);
-            GamePlayUI.playing = false;
+            //GamePlayUI.playing = false;
         }
     }
 
@@ -247,30 +253,7 @@ public class PlayerController : MonoBehaviour
         if (currentPoints > maxPoints) maxPoints = currentPoints;
         winLosePanel.SetActive(true);
         camCurtain.SetActive(true);
-        GamePlayUI.playing = false;
-    }
-
-
-    void PlaySFX(string name)
-    {
-        for (int i = 0; i < sFXAudioSource.Length; i++)
-        {
-            if (sFXAudioSource[i].name == name)
-            {
-                if (!sFXAudioSource[i].isPlaying)
-                {
-                    sFXAudioSource[i].Play();
-                }
-                else
-                {
-                    if(sFXAudioSource[i].name != "WinSFX")
-                    {
-                        sFXAudioSource[i].Stop();
-                        sFXAudioSource[i].Play();
-                    }
-                }
-            }            
-        }
+        //GamePlayUI.playing = false;
     }
 
     public void PlayParticleSystem()

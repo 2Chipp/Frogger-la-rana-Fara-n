@@ -26,7 +26,7 @@ public class GroupData : MonoBehaviour
     Vector3 playerInitialPos;
     Transform player;
 
-    GamePlayUI gamePlayUI;
+    DataManager dataManager;
 
     protected int lastEmptyPositionCount;
     private void Start()
@@ -34,7 +34,7 @@ public class GroupData : MonoBehaviour
         myCoin = new GameObject[3];
         player = FindObjectOfType<PlayerController>().transform;
         playerInitialPos = player.transform.position;
-        gamePlayUI = FindObjectOfType<GamePlayUI>();
+        dataManager = DataManager.dataManager;
         mySelf_groupData = GetComponent<GroupData>();
         gameGrid = FindObjectOfType<GameGrid>();
         obstaclePool = FindObjectOfType<ObstaclePool>();
@@ -185,7 +185,7 @@ public class GroupData : MonoBehaviour
     public void ResetInitialValues()
     {
         restart = false;
-        gamePlayUI.ResetTime();
+        dataManager.ResetTime();
         for (int i = 0; i < gameGrid.gridWidth; i++)
         {
             if(decoration[i]!=null)decoration[i].SetActive(false);

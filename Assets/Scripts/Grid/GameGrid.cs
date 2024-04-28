@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameGrid : MonoBehaviour
 {
     public GameObject cellPrefab;
-    float cellSize;
     public float cellOffset;
     GameObject instancePoint;
 
