@@ -7,7 +7,7 @@ public class DataManager : MonoBehaviour
 
     [Header("Time Data")]
 
-    [SerializeField] private float gameTimeInMinutes;
+    [SerializeField] private float gameTimeInMinutes = 2;
     private float InitialGameTime { get; set; }
     public float GameTime { get; set; }
     public int Minutes { get; set; }
@@ -29,14 +29,15 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        if (!dataManager)
+        if (dataManager == null)
         {
             dataManager = this;
         }
+        else Destroy(this);
     }
     void Start()
     {
-        
+        Init();
     }
 
     private void Init()

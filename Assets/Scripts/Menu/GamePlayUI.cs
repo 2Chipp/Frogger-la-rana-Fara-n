@@ -3,23 +3,32 @@ using TMPro;
 
 public class GamePlayUI : MonoBehaviour
 {
+    public static GamePlayUI gamePlayUI;
     DataManager dataManager;
 
-    public GameObject MainMenuPanel;
-    public GameObject GamePlayPanel;
-    public GameObject WinLosePanel;
-
-    public TextMeshProUGUI minutesText;
-    public TextMeshProUGUI secondsText;
-    public TextMeshProUGUI coinsText;
-    public TextMeshProUGUI livesText;
-
-    public TextMeshProUGUI pointsText;
-    public TextMeshProUGUI maxPointsText;
-    public TextMeshProUGUI comentText;
+    [SerializeField] GameObject MainMenuPanel;
+    [SerializeField] GameObject GamePlayPanel;
+    [SerializeField] GameObject WinLosePanel;
+    
+    [SerializeField] TextMeshProUGUI minutesText;
+    [SerializeField] TextMeshProUGUI secondsText;
+    [SerializeField] TextMeshProUGUI coinsText;
+    [SerializeField] TextMeshProUGUI livesText;
+    
+    [SerializeField] TextMeshProUGUI pointsText;
+    [SerializeField] TextMeshProUGUI maxPointsText;
+    [SerializeField] TextMeshProUGUI comentText;
 
     GroupData[] groupData;
 
+    private void Awake()
+    {
+        if (gamePlayUI == null)
+        {
+            gamePlayUI = this;
+        }
+        else Destroy(this);
+    }
     // Start is called before the first frame update
     void Start()
     {

@@ -204,7 +204,7 @@ public class GroupData : MonoBehaviour
         player.GetComponent<PlayerController>().onMovingPlatform = false;
         player.GetComponent<PlayerController>().currentPoints = 0;
         player.GetComponent<PlayerController>().currentCoins = 0;
-        player.GetComponent<PlayerController>().lives = 5;
+        //player.GetComponent<PlayerController>().lives = 5;
         player.GetComponent<PlayerController>().trigger = true;
         player.GetComponent<PlayerController>().RestartTarget();
         player.GetComponent<PlayerController>().StopParticleSystem();

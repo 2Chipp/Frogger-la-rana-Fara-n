@@ -6,8 +6,10 @@ using DG.Tweening;
 public class PlayerController : MonoBehaviour
 {
     Camera mainCamera;
+    GamePlayUI gamePlayUI;
+    DataManager dataManager;
 
-    public GameObject camCurtain;
+    //public GameObject camCurtain;
 
     Ray ray;
     RaycastHit hit;
@@ -31,16 +33,16 @@ public class PlayerController : MonoBehaviour
 
     Vector3 lastSaveZoneCellPosition;
 
-    public int lives=5;
+    //public int lives=5;
 
     //public AudioSource[] sFXAudioSource;
     [SerializeField] SoundManager soundManager;
 
-    public GameObject myParticleSystem;
+    //public GameObject myParticleSystem;
 
 
 
-    public GameObject winLosePanel;
+    //public GameObject winLosePanel;
 
     public bool onMovingPlatform = false;
     [Range(-1, 1)]
@@ -54,6 +56,9 @@ public class PlayerController : MonoBehaviour
 
     void Init()
     {
+        dataManager = DataManager.dataManager;
+        gamePlayUI = GamePlayUI.gamePlayUI;
+
         animator = GetComponent<Animator>();
         gameGrid = FindObjectOfType<GameGrid>();
         mainCamera = Camera.main;
@@ -66,18 +71,23 @@ public class PlayerController : MonoBehaviour
     {
         Moving();
         Jump();
-        jumpCooldown -= Time.deltaTime;
-        jumping = jumpCooldown > 0 ? true : false;
-        if ((transform.position.x < 0)|| (transform.position.x > gameGrid.gridWidth * 10))
+        OutsideTheGridCheck();
+    }
+
+    void OutsideTheGridCheck()
+    {
+        if ((transform.position.x < 0) || (transform.position.x > gameGrid.gridWidth * 10))
         {
-            lives--;
-            currentPoints -= 100;
+            dataManager.Lives--;
+            dataManager.Points -= 100;
             TranslatePlayer();
         }
     }
 
     void Jump()
     {
+        jumpCooldown -= Time.deltaTime;
+        jumping = jumpCooldown > 0 ? true : false;
         ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(transform.position, -Vector3.up, Color.red, 0.5f);
         if(Physics.Raycast(transform.position, -Vector3.up, out hit,  0.5f))
@@ -166,14 +176,14 @@ public class PlayerController : MonoBehaviour
             {
                 restriction = true;
                 animator.SetTrigger("Dead");
-                lives--;
+                dataManager.Lives--;
                 Invoke("TranslatePlayer", 1.25f);
                 currentPoints -= 100;
                 trigger = false;
             }
             soundManager.PlaySFX("CrashSFX");            
-            Debug.Log("Lives :" + lives);
-            if (lives <= 0) Lose();
+            //Debug.Log("Lives :" + lives);
+            if (dataManager.Lives <= 0) Lose();
         }
         else if (other.tag == "Coin")
         {
@@ -224,7 +234,7 @@ public class PlayerController : MonoBehaviour
     public void RestartTarget()
     {
         target = Vector3.zero;
-        camCurtain.SetActive(false);
+        //camCurtain.SetActive(false);
     }
 
     public bool wF;
@@ -240,8 +250,8 @@ public class PlayerController : MonoBehaviour
             if (currentPoints > maxPoints) maxPoints = currentPoints;
             PlayParticleSystem();
 
-            winLosePanel.SetActive(true);
-            camCurtain.SetActive(true);
+            //winLosePanel.SetActive(true);
+            //camCurtain.SetActive(true);
             //GamePlayUI.playing = false;
         }
     }
@@ -251,18 +261,18 @@ public class PlayerController : MonoBehaviour
         wF = false;
         Debug.Log("lose");
         if (currentPoints > maxPoints) maxPoints = currentPoints;
-        winLosePanel.SetActive(true);
-        camCurtain.SetActive(true);
+        //winLosePanel.SetActive(true);
+        //camCurtain.SetActive(true);
         //GamePlayUI.playing = false;
     }
 
     public void PlayParticleSystem()
     {
-        myParticleSystem.transform.position = transform.position + Vector3.up * 20f;
-        myParticleSystem.GetComponent<ParticleSystem>().Play();
+        //myParticleSystem.transform.position = transform.position + Vector3.up * 20f;
+        //myParticleSystem.GetComponent<ParticleSystem>().Play();
     }
     public void StopParticleSystem()
     {
-        myParticleSystem.GetComponent<ParticleSystem>().Stop();
+        //myParticleSystem.GetComponent<ParticleSystem>().Stop();
     }
 }

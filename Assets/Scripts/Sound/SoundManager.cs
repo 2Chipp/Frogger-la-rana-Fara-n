@@ -23,19 +23,23 @@ public class SoundManager : MonoBehaviour
         {
             if (sFXAudioClip[i].name == name)
             {
-                audioSource.clip = sFXAudioClip[i];
                 if (!audioSource.isPlaying)
                 {
-                    audioSource.Play();
+                    audioSource.PlayOneShot(sFXAudioClip[i]);
                 }
                 else
                 {
-                    if (sFXAudioClip[i].name != "WinSFX")
+                    if (sFXAudioClip[i] != audioSource.clip)
+                    {
+                        audioSource.PlayOneShot(sFXAudioClip[i]);
+                    }
+                    else
                     {
                         audioSource.Stop();
-                        audioSource.Play();
+                        audioSource.PlayOneShot(sFXAudioClip[i]);
                     }
                 }
+                audioSource.clip = sFXAudioClip[i];
             }
         }
     }
