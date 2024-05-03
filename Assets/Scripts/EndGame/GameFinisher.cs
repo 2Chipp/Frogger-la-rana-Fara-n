@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class GameFinisher : MonoBehaviour
 {
-    public enum PlayerStatus { Winner, Loser }
-
-    public static PlayerStatus MyPlayerStatus { get; set; }
+    public enum PlayerStatus { Undefined, Winner, Loser }
 
     [SerializeField] private GameObject camCurtain;
     [SerializeField] private GameObject myParticleSystem;
 
     DataManager dataManager;
+    EventManager eventManager;
+
+    public static GameFinisher gameFinisher;
+
+    private void Awake()
+    {
+        if (gameFinisher == null)
+        {
+            gameFinisher = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +34,15 @@ public class GameFinisher : MonoBehaviour
 
     void Init()
     {
+        eventManager = EventManager.eventManager;
         dataManager = DataManager.dataManager;
+
+        eventManager.onEndGame += EndGame;
     }
     // Update is called once per frame
     public void EndGame()
     {
-        switch (MyPlayerStatus)
+        switch (dataManager.MyPlayerStatus)
         {
             default:
                 break;
@@ -39,6 +55,7 @@ public class GameFinisher : MonoBehaviour
         }
     }
 
+
     void Win()
     {
 
@@ -47,5 +64,10 @@ public class GameFinisher : MonoBehaviour
     void Lose()
     {
 
+    }
+
+    private void OnDestroy()
+    {
+        eventManager.onEndGame -= EndGame;
     }
 }

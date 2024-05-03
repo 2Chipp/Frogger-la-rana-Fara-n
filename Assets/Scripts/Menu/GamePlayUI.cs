@@ -6,9 +6,9 @@ public class GamePlayUI : MonoBehaviour
     public static GamePlayUI gamePlayUI;
     DataManager dataManager;
 
-    [SerializeField] GameObject MainMenuPanel;
-    [SerializeField] GameObject GamePlayPanel;
-    [SerializeField] GameObject WinLosePanel;
+    [SerializeField] GameObject mainMenuPanel;
+    [SerializeField] GameObject gamePlayPanel;
+    [SerializeField] GameObject winLosePanel;
     
     [SerializeField] TextMeshProUGUI minutesText;
     [SerializeField] TextMeshProUGUI secondsText;
@@ -57,19 +57,19 @@ public class GamePlayUI : MonoBehaviour
         pointsText.text = "puntuación Actual :" + dataManager.Points.ToString();
         maxPointsText.text = "puntuación Maxima :" + dataManager.MaxPoints.ToString();
 
-        //if (player.wF)
-        //{
-        //    comentText.text = "Felicitaciones, Ayudaste al emperador a recuperar su trono con exito";
-        //}
-        //else comentText.text = "Sigue intentando, la practica hace al maestro";
+        if (dataManager.MyPlayerStatus == GameFinisher.PlayerStatus.Winner)
+        {
+            comentText.text = "Felicitaciones, Ayudaste al emperador a recuperar su trono con exito";
+        }
+        else comentText.text = "Sigue intentando, la practica hace al maestro";
     }
 
 
     public void Restart()
     {
-        MainMenuPanel.SetActive(false);
-        WinLosePanel.SetActive(false);
-        GamePlayPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
+        winLosePanel.SetActive(false);
+        gamePlayPanel.SetActive(true);
         dataManager.PlayingState = true;
         for (int i = 0; i < groupData.Length; i++)
         {
@@ -77,6 +77,10 @@ public class GamePlayUI : MonoBehaviour
         }
     }
 
+    public void EndGame()
+    {
+        winLosePanel.SetActive(false);        
+    }
 
     public void Continue()
     {

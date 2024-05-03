@@ -22,6 +22,7 @@ public class DataManager : MonoBehaviour
     public int Coins { get; set; }
     public int Points { get; set; }
     public int MaxPoints { get; set; }
+    public GameFinisher.PlayerStatus MyPlayerStatus { get; set; }
 
     [Header("Singleton")]
 
@@ -45,12 +46,14 @@ public class DataManager : MonoBehaviour
         GameTime = gameTimeInMinutes * 60;
         InitialGameTime = GameTime;
         Time.timeScale = 0;
+        MyPlayerStatus = GameFinisher.PlayerStatus.Undefined;
     }
 
     // Update is called once per frame
     void Update()
     {
         CountDownTimer();
+        SetMaxPoints();
     }
 
     void CountDownTimer()
@@ -67,6 +70,11 @@ public class DataManager : MonoBehaviour
             }
         }
 
+    }
+
+    void SetMaxPoints()
+    {
+        MaxPoints = Points > MaxPoints ? Points : MaxPoints;
     }
 
     public void ResetTime()

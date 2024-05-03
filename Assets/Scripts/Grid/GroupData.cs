@@ -24,7 +24,7 @@ public class GroupData : MonoBehaviour
     GroupData mySelf_groupData;
 
     Vector3 playerInitialPos;
-    Transform player;
+    PlayerController player;
 
     DataManager dataManager;
 
@@ -32,7 +32,7 @@ public class GroupData : MonoBehaviour
     private void Start()
     {
         myCoin = new GameObject[3];
-        player = FindObjectOfType<PlayerController>().transform;
+        player = FindObjectOfType<PlayerController>();
         playerInitialPos = player.transform.position;
         dataManager = DataManager.dataManager;
         mySelf_groupData = GetComponent<GroupData>();
@@ -201,14 +201,14 @@ public class GroupData : MonoBehaviour
             SpawnObstacleSorter(i);
         }
         player.transform.position = playerInitialPos;
-        player.GetComponent<PlayerController>().onMovingPlatform = false;
-        player.GetComponent<PlayerController>().currentPoints = 0;
-        player.GetComponent<PlayerController>().currentCoins = 0;
+        player.onMovingPlatform = false;
+        dataManager.Points = 0;
+        dataManager.Coins = 0;
         //player.GetComponent<PlayerController>().lives = 5;
-        player.GetComponent<PlayerController>().trigger = true;
-        player.GetComponent<PlayerController>().RestartTarget();
-        player.GetComponent<PlayerController>().StopParticleSystem();
-        player.GetComponent<PlayerController>().win = true; ;
+        player.trigger = true;
+        player.RestartTarget();
+        player.StopParticleSystem();
+        player.win = true; ;
         for (int i = 0; i < myCoin.Length; i++)
         {
             if (myCoin[i] != null) myCoin[i].transform.position = new Vector3(myCoin[i].transform.position.x, 2, myCoin[i].transform.position.z);

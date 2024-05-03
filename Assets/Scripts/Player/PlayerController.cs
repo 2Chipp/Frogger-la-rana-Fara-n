@@ -6,8 +6,13 @@ using DG.Tweening;
 public class PlayerController : MonoBehaviour
 {
     Camera mainCamera;
+    GameGrid gameGrid;
     GamePlayUI gamePlayUI;
     DataManager dataManager;
+    SoundManager soundManager;
+    GameFinisher gameFinisher;
+
+    EventManager eventManager;
 
     //public GameObject camCurtain;
 
@@ -29,14 +34,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] float jumpDuration;
 
-    GameGrid gameGrid;
 
     Vector3 lastSaveZoneCellPosition;
 
     //public int lives=5;
 
-    //public AudioSource[] sFXAudioSource;
-    [SerializeField] SoundManager soundManager;
 
     //public GameObject myParticleSystem;
 
@@ -56,8 +58,10 @@ public class PlayerController : MonoBehaviour
 
     void Init()
     {
+        eventManager = EventManager.eventManager;
         dataManager = DataManager.dataManager;
         gamePlayUI = GamePlayUI.gamePlayUI;
+        soundManager = SoundManager.soundManager;
 
         animator = GetComponent<Animator>();
         gameGrid = FindObjectOfType<GameGrid>();
@@ -88,6 +92,7 @@ public class PlayerController : MonoBehaviour
     {
         jumpCooldown -= Time.deltaTime;
         jumping = jumpCooldown > 0 ? true : false;
+
         ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(transform.position, -Vector3.up, Color.red, 0.5f);
         if(Physics.Raycast(transform.position, -Vector3.up, out hit,  0.5f))
@@ -99,7 +104,9 @@ public class PlayerController : MonoBehaviour
                 
                 if ((currentCoins == GroupData.totalCoins) && (hit.transform.GetComponent<Cell>().cellGroup == gameGrid.gridHeight - 1))
                 {
-                    Win();
+                    dataManager.MyPlayerStatus = GameFinisher.PlayerStatus.Winner;
+                    eventManager.EndGame();
+                    
                 }
                 else if (hit.transform.GetComponent<Cell>().groupType == Cell.GroupType.SaveZone)
                 {
@@ -122,7 +129,7 @@ public class PlayerController : MonoBehaviour
                         Debug.DrawLine(transform.position, target, Color.green);
                         if ((Input.GetMouseButtonDown(0)) && (temporalTarget != target) && (!restriction) && (cell.interactable) )
                         {
-                            currentPoints += 50;
+                            dataManager.Points += 50;
                             soundManager.PlaySFX("JumpSFX");
                             target = temporalTarget;
                             onMovingPlatform = cell.moving;
@@ -178,7 +185,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Dead");
                 dataManager.Lives--;
                 Invoke("TranslatePlayer", 1.25f);
-                currentPoints -= 100;
+                dataManager.Points -= 100;
                 trigger = false;
             }
             soundManager.PlaySFX("CrashSFX");            
@@ -189,7 +196,7 @@ public class PlayerController : MonoBehaviour
         {
             soundManager.PlaySFX("CoinSFX");
             trigger = false;
-            currentPoints += 100;
+            dataManager.Points += 100;
             maxDistance = 29;
             currentCoins++;
             other.transform.position += Vector3.up * 100;
@@ -224,8 +231,9 @@ public class PlayerController : MonoBehaviour
             pointedTarguetPrefab.transform.GetChild(1).GetComponent<MeshRenderer>().material = pointedTarguetRed;
         }
     }
-    public int maxPoints;
-    public int currentPoints;
+    
+    //public int maxPoints;
+    //public int currentPoints;
     public void RestartCoins()
     {
         currentCoins = 0;
@@ -245,9 +253,7 @@ public class PlayerController : MonoBehaviour
         {
             win = false;
             wF = true;
-            Debug.Log("Win!!!");
             soundManager.PlaySFX("WinSFX");
-            if (currentPoints > maxPoints) maxPoints = currentPoints;
             PlayParticleSystem();
 
             //winLosePanel.SetActive(true);
@@ -260,7 +266,6 @@ public class PlayerController : MonoBehaviour
     {
         wF = false;
         Debug.Log("lose");
-        if (currentPoints > maxPoints) maxPoints = currentPoints;
         //winLosePanel.SetActive(true);
         //camCurtain.SetActive(true);
         //GamePlayUI.playing = false;
