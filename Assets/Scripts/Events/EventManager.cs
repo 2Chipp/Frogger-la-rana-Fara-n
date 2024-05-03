@@ -21,10 +21,10 @@ public class EventManager : MonoBehaviour
         onEndGame?.Invoke();
     }
 
-    // Subscribed classes: 
-    public event Action onRestart;
-    public void Restart()
+    // Subscribed classes: GroupData, GamePlayUI, PlayerController, GameFinisher
+    public event Action onRestartGame;
+    public void RestartGame()
     {
-        onRestart?.Invoke();
+        onRestartGame?.Invoke();
     }
 }

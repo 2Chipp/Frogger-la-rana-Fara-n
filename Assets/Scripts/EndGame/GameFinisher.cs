@@ -7,7 +7,7 @@ public class GameFinisher : MonoBehaviour
     public enum PlayerStatus { Undefined, Winner, Loser }
 
     [SerializeField] private GameObject camCurtain;
-    [SerializeField] private GameObject myParticleSystem;
+    [SerializeField] private ParticleSystem myParticleSystem;
 
     DataManager dataManager;
     EventManager eventManager;
@@ -42,29 +42,27 @@ public class GameFinisher : MonoBehaviour
     // Update is called once per frame
     public void EndGame()
     {
-        switch (dataManager.MyPlayerStatus)
-        {
-            default:
-                break;
-            case PlayerStatus.Winner:
-                Win();
-                break;
-            case PlayerStatus.Loser:
-                Lose();
-                break;
-        }
+        camCurtain.SetActive(true);
+        if(dataManager.MyPlayerStatus == PlayerStatus.Winner) PlayParticleSystem(dataManager.PlayerPosition);
     }
 
-
-    void Win()
+    public void PlayParticleSystem(Vector3 playerPosition)
     {
-
+        myParticleSystem.transform.position = playerPosition + Vector3.up * 20f;
+        myParticleSystem.Play();
     }
 
-    void Lose()
+    public void StopParticleSystem()
     {
-
+        myParticleSystem.Stop();
     }
+
+    public void RestartGame()
+    {
+        StopParticleSystem();
+        camCurtain.SetActive(false);
+    }
+
 
     private void OnDestroy()
     {

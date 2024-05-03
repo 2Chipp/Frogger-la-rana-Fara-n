@@ -5,6 +5,7 @@ public class GamePlayUI : MonoBehaviour
 {
     public static GamePlayUI gamePlayUI;
     DataManager dataManager;
+    EventManager eventManager;
 
     [SerializeField] GameObject mainMenuPanel;
     [SerializeField] GameObject gamePlayPanel;
@@ -37,9 +38,12 @@ public class GamePlayUI : MonoBehaviour
 
     void Init()
     {
+        eventManager = EventManager.eventManager;
         dataManager = DataManager.dataManager;
         groupData = FindObjectsOfType<GroupData>();
         Time.timeScale = 0;
+
+        eventManager.onEndGame += EndGame;
     }
     // Update is called once per frame
     void Update()
@@ -65,7 +69,7 @@ public class GamePlayUI : MonoBehaviour
     }
 
 
-    public void Restart()
+    public void RestartGame()
     {
         mainMenuPanel.SetActive(false);
         winLosePanel.SetActive(false);
@@ -76,20 +80,25 @@ public class GamePlayUI : MonoBehaviour
             groupData[i].ResetInitialValues();
         }
     }
-
     public void EndGame()
     {
-        winLosePanel.SetActive(false);        
+        winLosePanel.SetActive(true);        
     }
 
     public void Continue()
     {
         Time.timeScale = 1;
+        dataManager.PlayingState = true;
     }
 
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    private void OnDestroy()
+    {
+        eventManager.onEndGame -= EndGame;
     }
 
 }

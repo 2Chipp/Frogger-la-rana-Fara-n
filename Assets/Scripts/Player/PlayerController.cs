@@ -21,11 +21,16 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 temporalTarget;
     public Vector3 target;
+    Vector3 initialPosition;
 
     float distance;
     float maxDistance = 17f;
     float jumpCooldown;
     bool jumping;
+
+    public Material pointedTarguetRed;
+    public Material pointedTarguetGreen;
+    public GameObject pointedTarguetPrefab;
 
     Animator animator;
 
@@ -34,17 +39,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] float jumpDuration;
 
+    public bool restriction=false;
+    public bool trigger=true;
+    public int currentCoins=0;
 
     Vector3 lastSaveZoneCellPosition;
-
-    //public int lives=5;
-
-
-    //public GameObject myParticleSystem;
-
-
-
-    //public GameObject winLosePanel;
 
     public bool onMovingPlatform = false;
     [Range(-1, 1)]
@@ -63,11 +62,14 @@ public class PlayerController : MonoBehaviour
         gamePlayUI = GamePlayUI.gamePlayUI;
         soundManager = SoundManager.soundManager;
 
+        eventManager.onRestartGame += RestartGame;
+
         animator = GetComponent<Animator>();
         gameGrid = FindObjectOfType<GameGrid>();
         mainCamera = Camera.main;
         target = transform.position;
         pointedTarguetPrefab = Instantiate(pointedTarguetPrefab, Vector3.zero, Quaternion.identity);
+        initialPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -170,11 +172,9 @@ public class PlayerController : MonoBehaviour
         {
             transform.position += Vector3.right * direction * speed * Time.deltaTime;
         }
+        dataManager.PlayerPosition = transform.position;
     }
 
-    public bool restriction=false;
-    public bool trigger=true;
-    public int currentCoins=0;
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Obstacle")
@@ -188,9 +188,8 @@ public class PlayerController : MonoBehaviour
                 dataManager.Points -= 100;
                 trigger = false;
             }
-            soundManager.PlaySFX("CrashSFX");            
-            //Debug.Log("Lives :" + lives);
-            if (dataManager.Lives <= 0) Lose();
+            soundManager.PlaySFX("CrashSFX");
+            if (dataManager.Lives <= 0) eventManager.EndGame();
         }
         else if (other.tag == "Coin")
         {
@@ -210,13 +209,7 @@ public class PlayerController : MonoBehaviour
         onMovingPlatform = false;
         restriction = false;
     }
-    
 
-
-
-    public Material pointedTarguetRed;
-    public Material pointedTarguetGreen;
-    public GameObject pointedTarguetPrefab;
     void SetPointedTarguet(Cell cell, float distance)
     {
         pointedTarguetPrefab.transform.position = cell.transform.position + Vector3.up * 1;
@@ -231,53 +224,18 @@ public class PlayerController : MonoBehaviour
             pointedTarguetPrefab.transform.GetChild(1).GetComponent<MeshRenderer>().material = pointedTarguetRed;
         }
     }
-    
-    //public int maxPoints;
-    //public int currentPoints;
-    public void RestartCoins()
-    {
-        currentCoins = 0;
-    }
 
-    public void RestartTarget()
+    public void RestartGame()
     {
         target = Vector3.zero;
-        //camCurtain.SetActive(false);
+        transform.position = initialPosition;
+        onMovingPlatform = false;
+        trigger = true;
     }
 
-    public bool wF;
-    public bool win = true;
-    void Win()
+    private void OnDestroy()
     {
-        if (win)
-        {
-            win = false;
-            wF = true;
-            soundManager.PlaySFX("WinSFX");
-            PlayParticleSystem();
-
-            //winLosePanel.SetActive(true);
-            //camCurtain.SetActive(true);
-            //GamePlayUI.playing = false;
-        }
+        eventManager.onRestartGame -= RestartGame;
     }
 
-    public void Lose()
-    {
-        wF = false;
-        Debug.Log("lose");
-        //winLosePanel.SetActive(true);
-        //camCurtain.SetActive(true);
-        //GamePlayUI.playing = false;
-    }
-
-    public void PlayParticleSystem()
-    {
-        //myParticleSystem.transform.position = transform.position + Vector3.up * 20f;
-        //myParticleSystem.GetComponent<ParticleSystem>().Play();
-    }
-    public void StopParticleSystem()
-    {
-        //myParticleSystem.GetComponent<ParticleSystem>().Stop();
-    }
 }

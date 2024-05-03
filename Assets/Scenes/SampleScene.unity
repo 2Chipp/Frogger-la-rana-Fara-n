@@ -883,9 +883,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fc3f569bedb1d40b4f7833934988ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuPanel: {fileID: 215155807}
-  GamePlayPanel: {fileID: 685909144}
-  WinLosePanel: {fileID: 1358111747}
+  mainMenuPanel: {fileID: 215155807}
+  gamePlayPanel: {fileID: 685909144}
+  winLosePanel: {fileID: 1358111747}
   minutesText: {fileID: 218705674}
   secondsText: {fileID: 965107015}
   coinsText: {fileID: 476028310}
@@ -2616,9 +2616,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f859211b2f487044a1818a8f1f96f4c, type: 3}
---- !u!1 &1127878370 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3015248855883160498, guid: 2f859211b2f487044a1818a8f1f96f4c, type: 3}
+--- !u!198 &1127878372 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3015248855883160496, guid: 2f859211b2f487044a1818a8f1f96f4c, type: 3}
   m_PrefabInstance: {fileID: 1127878369}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1154369356
@@ -3128,7 +3128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTimeInMinutes: 2
-  playerLives: 5
+  playerLives: 1
 --- !u!4 &1425991623
 Transform:
   m_ObjectHideFlags: 0
@@ -3142,6 +3142,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1466516275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466516277}
+  - component: {fileID: 1466516276}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1466516276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466516275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d9a034668dd3340a1b61f31473bce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1466516277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466516275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1556596653
 GameObject:
@@ -3397,6 +3440,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1787697103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1787697105}
+  - component: {fileID: 1787697104}
+  m_Layer: 0
+  m_Name: GameFinisher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1787697104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787697103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2dba2c61fa62b4ba622a6cebd85963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camCurtain: {fileID: 810522793}
+  myParticleSystem: {fileID: 1127878372}
+--- !u!4 &1787697105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787697103}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1866631128
 GameObject:
   m_ObjectHideFlags: 0
@@ -4225,27 +4313,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6af507989753b44a47f58ca2f41842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camCurtain: {fileID: 810522793}
   temporalTarget: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 0}
-  myEase: 16
-  jumpForce: 5
-  jumpDuration: 0.5
-  lives: 5
-  soundManager: {fileID: 1000699172}
-  myParticleSystem: {fileID: 1127878370}
-  winLosePanel: {fileID: 1358111747}
-  onMovingPlatform: 0
-  restriction: 0
-  trigger: 1
-  currentCoins: 0
   pointedTarguetRed: {fileID: 2100000, guid: b325eabc20d5dc64a898d4b4cb8c24c1, type: 2}
   pointedTarguetGreen: {fileID: 2100000, guid: a6ac22104819b7341a218bef4b096879, type: 2}
   pointedTarguetPrefab: {fileID: 6066946747848606479, guid: 74f6bb8cf25dcc24382a82a963faf852, type: 3}
-  maxPoints: 0
-  currentPoints: 0
-  wF: 0
-  win: 1
+  myEase: 16
+  jumpForce: 5
+  jumpDuration: 0.5
+  restriction: 0
+  trigger: 1
+  currentCoins: 0
+  onMovingPlatform: 0
 --- !u!65 &919132149327971724
 BoxCollider:
   m_ObjectHideFlags: 0

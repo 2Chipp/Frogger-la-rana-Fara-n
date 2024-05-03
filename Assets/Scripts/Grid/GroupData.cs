@@ -20,21 +20,25 @@ public class GroupData : MonoBehaviour
 
     GameObject[] groundPrefab;
 
-    public bool restart = false;
     GroupData mySelf_groupData;
+    EventManager eventManager;
 
-    Vector3 playerInitialPos;
-    PlayerController player;
-
-    DataManager dataManager;
+    GameObject [] myCoin;
+    static int maxCoins = 3;
+    public static int totalCoins;
 
     protected int lastEmptyPositionCount;
     private void Start()
     {
+        Init();
+    }
+
+    private void Init()
+    {
+        eventManager = EventManager.eventManager;
+        eventManager.onRestartGame += ResetInitialValues;
+
         myCoin = new GameObject[3];
-        player = FindObjectOfType<PlayerController>();
-        playerInitialPos = player.transform.position;
-        dataManager = DataManager.dataManager;
         mySelf_groupData = GetComponent<GroupData>();
         gameGrid = FindObjectOfType<GameGrid>();
         obstaclePool = FindObjectOfType<ObstaclePool>();
@@ -79,7 +83,6 @@ public class GroupData : MonoBehaviour
     {
         MovingObstacles();
         /*if (Input.GetButtonDown("Jump")) restart = true;*/
-        if (restart) ResetInitialValues();
     }
 
     void MovingObstacles()
@@ -184,8 +187,6 @@ public class GroupData : MonoBehaviour
     //Reestablecimeinto a valores iniciales
     public void ResetInitialValues()
     {
-        restart = false;
-        dataManager.ResetTime();
         for (int i = 0; i < gameGrid.gridWidth; i++)
         {
             if(decoration[i]!=null)decoration[i].SetActive(false);
@@ -200,15 +201,6 @@ public class GroupData : MonoBehaviour
             if(mySelf_groupData.groupType == GroupData.GroupType.Water) cellGroup[i].interactable = false;
             SpawnObstacleSorter(i);
         }
-        player.transform.position = playerInitialPos;
-        player.onMovingPlatform = false;
-        dataManager.Points = 0;
-        dataManager.Coins = 0;
-        //player.GetComponent<PlayerController>().lives = 5;
-        player.trigger = true;
-        player.RestartTarget();
-        player.StopParticleSystem();
-        player.win = true; ;
         for (int i = 0; i < myCoin.Length; i++)
         {
             if (myCoin[i] != null) myCoin[i].transform.position = new Vector3(myCoin[i].transform.position.x, 2, myCoin[i].transform.position.z);
@@ -241,9 +233,6 @@ public class GroupData : MonoBehaviour
 
 
 
-    GameObject [] myCoin;
-    static int maxCoins = 3;
-    public static int totalCoins;
     void SetCoins(int cellNumber)
     {
         bool random = Random.Range(0f, 1f) < 0.1f ? true : false;
@@ -280,6 +269,11 @@ public class GroupData : MonoBehaviour
                 lastEmptyPositionCount++;
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        eventManager.onRestartGame -= ResetInitialValues;
     }
 }
 
