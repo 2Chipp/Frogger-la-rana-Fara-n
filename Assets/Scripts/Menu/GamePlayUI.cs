@@ -3,7 +3,6 @@ using TMPro;
 
 public class GamePlayUI : MonoBehaviour
 {
-    public static GamePlayUI gamePlayUI;
     DataManager dataManager;
     EventManager eventManager;
 
@@ -20,16 +19,7 @@ public class GamePlayUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI maxPointsText;
     [SerializeField] TextMeshProUGUI comentText;
 
-    GroupData[] groupData;
 
-    private void Awake()
-    {
-        if (gamePlayUI == null)
-        {
-            gamePlayUI = this;
-        }
-        else Destroy(this);
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -40,10 +30,10 @@ public class GamePlayUI : MonoBehaviour
     {
         eventManager = EventManager.eventManager;
         dataManager = DataManager.dataManager;
-        groupData = FindObjectsOfType<GroupData>();
         Time.timeScale = 0;
 
         eventManager.onEndGame += EndGame;
+        eventManager.onRestartGame += RestartGame;
     }
     // Update is called once per frame
     void Update()
@@ -74,15 +64,15 @@ public class GamePlayUI : MonoBehaviour
         mainMenuPanel.SetActive(false);
         winLosePanel.SetActive(false);
         gamePlayPanel.SetActive(true);
-        dataManager.PlayingState = true;
-        for (int i = 0; i < groupData.Length; i++)
-        {
-            groupData[i].ResetInitialValues();
-        }
     }
     public void EndGame()
     {
         winLosePanel.SetActive(true);        
+    }
+
+    public void Reset()
+    {
+        eventManager.RestartGame();
     }
 
     public void Continue()
@@ -99,6 +89,7 @@ public class GamePlayUI : MonoBehaviour
     private void OnDestroy()
     {
         eventManager.onEndGame -= EndGame;
+        eventManager.onRestartGame -= RestartGame;
     }
 
 }

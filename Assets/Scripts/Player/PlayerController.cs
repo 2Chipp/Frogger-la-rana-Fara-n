@@ -5,50 +5,46 @@ using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
-    Camera mainCamera;
-    GameGrid gameGrid;
-    GamePlayUI gamePlayUI;
-    DataManager dataManager;
-    SoundManager soundManager;
-    GameFinisher gameFinisher;
+    public Ease myEase = Ease.InQuart;
 
-    EventManager eventManager;
+    private Ray ray;
+    private RaycastHit hit;
 
-    //public GameObject camCurtain;
-
-    Ray ray;
-    RaycastHit hit;
-
+    private Vector3 initialPosition;
     public Vector3 temporalTarget;
     public Vector3 target;
-    Vector3 initialPosition;
 
-    float distance;
-    float maxDistance = 17f;
-    float jumpCooldown;
-    bool jumping;
+    private float distance;
+    private float maxDistance = 17f;
+    private float jumpCooldown;
+    private bool jumping;
 
     public Material pointedTarguetRed;
     public Material pointedTarguetGreen;
     public GameObject pointedTarguetPrefab;
 
-    Animator animator;
 
-    public Ease myEase = Ease.InQuart;
 
-    [SerializeField] float jumpForce;
-    [SerializeField] float jumpDuration;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpDuration;
 
     public bool restriction=false;
     public bool trigger=true;
-    public int currentCoins=0;
 
-    Vector3 lastSaveZoneCellPosition;
+    private Vector3 lastSaveZoneCellPosition;
 
     public bool onMovingPlatform = false;
     [Range(-1, 1)]
-    int direction;
-    float speed;
+    private int direction;
+    private float speed;
+
+    private Camera mainCamera;
+    private Animator animator;
+
+    private GameGrid gameGrid;
+    private DataManager dataManager;
+    private SoundManager soundManager;
+    private EventManager eventManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +55,6 @@ public class PlayerController : MonoBehaviour
     {
         eventManager = EventManager.eventManager;
         dataManager = DataManager.dataManager;
-        gamePlayUI = GamePlayUI.gamePlayUI;
         soundManager = SoundManager.soundManager;
 
         eventManager.onRestartGame += RestartGame;
@@ -104,7 +99,7 @@ public class PlayerController : MonoBehaviour
                 
                 distance = Vector3.Distance(transform.position, pointedTarguetPrefab.transform.position);
                 
-                if ((currentCoins == GroupData.totalCoins) && (hit.transform.GetComponent<Cell>().cellGroup == gameGrid.gridHeight - 1))
+                if ((dataManager.Coins == GroupData.totalCoins) && (hit.transform.GetComponent<Cell>().cellGroup == gameGrid.gridHeight - 1))
                 {
                     dataManager.MyPlayerStatus = GameFinisher.PlayerStatus.Winner;
                     eventManager.EndGame();
@@ -196,8 +191,8 @@ public class PlayerController : MonoBehaviour
             soundManager.PlaySFX("CoinSFX");
             trigger = false;
             dataManager.Points += 100;
+            dataManager.Coins++;
             maxDistance = 29;
-            currentCoins++;
             other.transform.position += Vector3.up * 100;
         }
     }

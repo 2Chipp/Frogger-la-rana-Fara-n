@@ -4,10 +4,6 @@ public class ObstaclePool : MonoBehaviour
 {
     public enum GroupType { SaveZone, Water, Road }
 
-    SetGroups setGroups;
-    GameGrid gameGrid;
-
-
     public GameObject roadObstacle_1;
     public GameObject roadObstacle_2;
     public GameObject roadObstacle_3;
@@ -19,52 +15,22 @@ public class ObstaclePool : MonoBehaviour
     public GameObject saveZoneObstacle;
 
 
-    GameObject[] roadObstacles;
-    GameObject[] waterObstacles;
+    private GameObject[] roadObstacles;
+    private GameObject[] waterObstacles;
 
     public GameObject[] decoration;
-    GameObject[] decorationPool;
+    private GameObject[] decorationPool;
 
-    int waterGroups;
-    int roadGroups;
-    int saveZoneGroups;
+    private int waterGroups;
+    private int roadGroups;
+    private int saveZoneGroups;
+
+    private SetGroups setGroups;
+    private GameGrid gameGrid;
     // Start is called before the first frame update
     void Start()
     {
-        gameGrid = FindObjectOfType<GameGrid>();
-        setGroups = FindObjectOfType<SetGroups>();
-        for (int i = 0; i < setGroups.groupType.Length; i++)
-        {
-            switch (setGroups.groupType[i].ToString())
-            {
-                case "Water": waterGroups++; Debug.Log("Water"); break;
-                case "Road": roadGroups++; Debug.Log("Road"); break;
-                case "SaveZone": saveZoneGroups++; Debug.Log("SaveZone"); break;
-            }
-
-        }
-        roadObstacles = new GameObject[roadGroups * gameGrid.gridWidth + 2];
-        waterObstacles = new GameObject[waterGroups * gameGrid.gridWidth + 2];
-        decorationPool = new GameObject[(saveZoneGroups * gameGrid.gridWidth) + 2];
-
-        for (int i = 0; i < roadObstacles.Length; i++)
-        {
-            GameObject temporalObject = Instantiate(ObstacleSorter("Road"), Vector3.zero, Quaternion.identity);
-            temporalObject.SetActive(false);
-            roadObstacles[i] = temporalObject;
-        }
-        for (int i = 0; i < waterObstacles.Length; i++)
-        {
-            GameObject temporalObject = Instantiate(ObstacleSorter("Water"), Vector3.zero, Quaternion.identity);
-            temporalObject.SetActive(false);
-            waterObstacles[i] = temporalObject;
-        }
-        for (int i = 0; i < decorationPool.Length; i++)
-        {
-            GameObject temporalObject = Instantiate(decoration[Random.Range(0, decoration.Length)], Vector3.zero, Quaternion.identity);
-            temporalObject.SetActive(false);
-            decorationPool[i] = temporalObject;
-        }
+        Init();
     }
 
     GameObject ObstacleSorter(string ObstacleType)
@@ -102,6 +68,44 @@ public class ObstaclePool : MonoBehaviour
         }
     }
 
+    void Init()
+    {
+        gameGrid = FindObjectOfType<GameGrid>();
+        setGroups = FindObjectOfType<SetGroups>();
+        for (int i = 0; i < setGroups.groupType.Length; i++)
+        {
+            switch (setGroups.groupType[i].ToString())
+            {
+                case "Water": waterGroups++; Debug.Log("Water"); break;
+                case "Road": roadGroups++; Debug.Log("Road"); break;
+                case "SaveZone": saveZoneGroups++; Debug.Log("SaveZone"); break;
+            }
+
+        }
+        roadObstacles = new GameObject[roadGroups * gameGrid.gridWidth + 2];
+        waterObstacles = new GameObject[waterGroups * gameGrid.gridWidth + 2];
+        decorationPool = new GameObject[(saveZoneGroups * gameGrid.gridWidth) + 2];
+
+        for (int i = 0; i < roadObstacles.Length; i++)
+        {
+            GameObject temporalObject = Instantiate(ObstacleSorter("Road"), Vector3.zero, Quaternion.identity);
+            temporalObject.SetActive(false);
+            roadObstacles[i] = temporalObject;
+        }
+        for (int i = 0; i < waterObstacles.Length; i++)
+        {
+            GameObject temporalObject = Instantiate(ObstacleSorter("Water"), Vector3.zero, Quaternion.identity);
+            temporalObject.SetActive(false);
+            waterObstacles[i] = temporalObject;
+        }
+        for (int i = 0; i < decorationPool.Length; i++)
+        {
+            GameObject temporalObject = Instantiate(decoration[Random.Range(0, decoration.Length)], Vector3.zero, Quaternion.identity);
+            temporalObject.SetActive(false);
+            decorationPool[i] = temporalObject;
+        }
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -116,6 +120,7 @@ public class ObstaclePool : MonoBehaviour
         {
             temporalObj = roadObstacles[0];
             roadObstacles[0].transform.position = position;
+            roadObstacles[0].transform.rotation = Quaternion.Euler(rotation);
             roadObstacles[0].SetActive(true);
             roadObstacles[roadObstacles.Length - 1] = roadObstacles[0];
             for (int i = 0; i < roadObstacles.Length - 1; i++)
@@ -136,7 +141,7 @@ public class ObstaclePool : MonoBehaviour
             }
             return temporalObj;
         }
-        else return saveZoneObstacle;
+        else return temporalObj;
     }
     public GameObject SpawnerDecorationObject(Vector3 position, Vector3 rotation)
     {

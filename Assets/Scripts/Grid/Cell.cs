@@ -29,6 +29,11 @@ public class Cell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Init();
+    }
+
+    void Init()
+    {
         gameGrid = FindObjectOfType<GameGrid>();
         floatingPoint = transform.position;
     }

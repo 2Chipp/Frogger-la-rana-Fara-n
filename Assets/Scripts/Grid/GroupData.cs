@@ -14,17 +14,17 @@ public class GroupData : MonoBehaviour
     public Cell[] cellGroup = new Cell[6];
     protected GameObject[] obstacles;
     protected GameObject[] decoration;
-    Vector3[] cellFirstPositionAray;
+    private Vector3[] cellFirstPositionAray;
 
-    float obstacleOffset;
+    private float obstacleOffset;
 
-    GameObject[] groundPrefab;
+    private GameObject[] groundPrefab;
 
-    GroupData mySelf_groupData;
-    EventManager eventManager;
+    private GroupData mySelf_groupData;
+    private EventManager eventManager;
 
-    GameObject [] myCoin;
-    static int maxCoins = 3;
+    private GameObject [] myCoin;
+    private static int maxCoins = 3;
     public static int totalCoins;
 
     protected int lastEmptyPositionCount;
@@ -46,7 +46,6 @@ public class GroupData : MonoBehaviour
         decoration = new GameObject[gameGrid.gridWidth + 1];
         cellFirstPositionAray = new Vector3[gameGrid.gridWidth];
         groundPrefab = new GameObject[gameGrid.gridWidth];
-        // Get initial position
         for (int i = 0; i < gameGrid.gridWidth; i++)
         {
             cellFirstPositionAray[i] = cellGroup[i].transform.position;
@@ -55,14 +54,11 @@ public class GroupData : MonoBehaviour
 
     public void ImportCellGroup(Cell[] _cellGroup)
     {
-        //Debug.Log("Import CellGroup OK");
         cellGroup = _cellGroup;
-        //Debug.Log(cellGroup.Length);
     }
 
     public void SetCellData() //<== Es llamado a travez de SetGroup
     {
-        //Debug.Log("SetCellData OK");
         for (int i = 0; i < gameGrid.gridWidth; i++)
         {
             cellGroup[i].interactable = interactable;
@@ -82,7 +78,6 @@ public class GroupData : MonoBehaviour
     void Update()
     {
         MovingObstacles();
-        /*if (Input.GetButtonDown("Jump")) restart = true;*/
     }
 
     void MovingObstacles()
@@ -107,12 +102,13 @@ public class GroupData : MonoBehaviour
 
     public void Respawn(int CellNumber) // Esllamado desde cada celda
     {
+        Vector3 dir = Vector3.up * moveDir;
         if (groupType.ToString() != "Road")
         {
             if (obstacles[CellNumber] != null)
             {
                 obstacles[CellNumber].SetActive(false);
-                var temporalobj = obstaclePool.Spawner(groupType.ToString(), cellGroup[CellNumber].transform.position, cellGroup[CellNumber].transform.eulerAngles);
+                var temporalobj = obstaclePool.Spawner(groupType.ToString(), cellGroup[CellNumber].transform.position, cellGroup[CellNumber].transform.rotation * dir);
                 obstacles[CellNumber] = temporalobj;
                 obstacles[CellNumber].SetActive(true);
             }
@@ -122,7 +118,7 @@ public class GroupData : MonoBehaviour
             if (obstacles[CellNumber] != null)
             {
                 obstacles[CellNumber].SetActive(false);
-                var temporalobj = obstaclePool.Spawner(groupType.ToString(), cellGroup[CellNumber].floatingPoint, cellGroup[CellNumber].transform.rotation.eulerAngles);
+                var temporalobj = obstaclePool.Spawner(groupType.ToString(), cellGroup[CellNumber].floatingPoint, cellGroup[CellNumber].transform.rotation * dir);
                 obstacles[CellNumber] = temporalobj;
                 obstacles[CellNumber].SetActive(true);
             }
@@ -132,6 +128,7 @@ public class GroupData : MonoBehaviour
     // Primera instancia de obstaculos
     public void SpawnObstacleSorter(int cellGroupIterator)
     {
+        Vector3 dir = Vector3.up * moveDir;
         bool random;
         
         random = Random.value < 0.4;
@@ -144,7 +141,7 @@ public class GroupData : MonoBehaviour
             else
             {
                 //Debug.Log(cellGroup + " " + cellGroupIterator);
-                var temporalobj = obstaclePool.Spawner(groupType.ToString(), cellGroup[cellGroupIterator].transform.position, cellGroup[cellGroupIterator].transform.eulerAngles);
+                var temporalobj = obstaclePool.Spawner(groupType.ToString(), cellGroup[cellGroupIterator].transform.position, cellGroup[cellGroupIterator].transform.rotation * dir);
                 obstacles[cellGroupIterator] = temporalobj;
                 if (groupType == GroupData.GroupType.Water) cellGroup[cellGroupIterator].interactable = true;
                 lastEmptyPositionCount++;
@@ -179,7 +176,6 @@ public class GroupData : MonoBehaviour
             }
         }
         SpawnDecorationObjectSorter(cellGroupIterator);
-        //.Log("CellNum :" + cellGroup[cellGroupIterator].cellNumber + " ObstacleArrayPos :" + cellGroupIterator);
     }
 
 

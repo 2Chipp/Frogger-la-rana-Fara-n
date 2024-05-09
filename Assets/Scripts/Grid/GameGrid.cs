@@ -83,6 +83,11 @@ public class GameGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Init();
+    }
+
+    void Init()
+    {
         instancePoint = new GameObject();
         instancePoint.transform.position = new Vector3(5f, 0.1f, 5f);
         InitializeVariables();
@@ -90,22 +95,14 @@ public class GameGrid : MonoBehaviour
         SetGroupData();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void GridCreation()
     {
         for (int i = 0; i < gridHeight; i++)
         {
-            //Debug.Log("Grid creation into for, init");
             int cellGroupNumberSelector = i;
             
             for (int a = 0; a < gridWidth; a++)
             {
-                //Debug.Log("Grid creation into 2for, init");
                 var cell = Instantiate(cellPrefab, instancePoint.transform.position, Quaternion.identity);
                 Cell thisCell = cell.GetComponent<Cell>();
                 thisCell.cellNumber = a;
@@ -145,7 +142,6 @@ public class GameGrid : MonoBehaviour
             default: Debug.LogError("Default"); cellGroup_1[iterator] = cell; break;
         }
         iterator++;
-        //Debug.Log("iterator :"+iterator);
         iterator = iterator >= gridWidth ? 0 : iterator;
     }
 
@@ -153,7 +149,6 @@ public class GameGrid : MonoBehaviour
     {
         for (int i = 0; i < gridHeight; i++)
         {
-            //Debug.Log("SetGroupData for " + i);
             switch (i)
             {
                 case 0: temporalCellArray = cellGroup_0; break;
@@ -183,16 +178,8 @@ public class GameGrid : MonoBehaviour
             groupData.GetComponent<GroupData>().ImportCellGroup(temporalCellArray);
             groupDataArray[i] = groupData.GetComponent<GroupData>();
             groupData.name = "GroupData_" + i.ToString();
-            //Debug.Log(groupDataArray[i].cellGroup);            
-            //Debug.Log("SetGroupData end " + groupDataArray[i]);
         }
     }    
-
-
-    void SetGround()
-    {
-
-    }
 }
 
 

@@ -8,9 +8,10 @@ public class GameFinisher : MonoBehaviour
 
     [SerializeField] private GameObject camCurtain;
     [SerializeField] private ParticleSystem myParticleSystem;
+    [SerializeField] private float particleSystemOffset;
 
-    DataManager dataManager;
-    EventManager eventManager;
+    private DataManager dataManager;
+    private EventManager eventManager;
 
     public static GameFinisher gameFinisher;
 
@@ -38,6 +39,7 @@ public class GameFinisher : MonoBehaviour
         dataManager = DataManager.dataManager;
 
         eventManager.onEndGame += EndGame;
+        eventManager.onRestartGame += RestartGame;
     }
     // Update is called once per frame
     public void EndGame()
@@ -48,7 +50,7 @@ public class GameFinisher : MonoBehaviour
 
     public void PlayParticleSystem(Vector3 playerPosition)
     {
-        myParticleSystem.transform.position = playerPosition + Vector3.up * 20f;
+        myParticleSystem.transform.position = playerPosition + Vector3.up * particleSystemOffset;
         myParticleSystem.Play();
     }
 
@@ -67,5 +69,6 @@ public class GameFinisher : MonoBehaviour
     private void OnDestroy()
     {
         eventManager.onEndGame -= EndGame;
+        eventManager.onRestartGame -= RestartGame;
     }
 }

@@ -92,8 +92,10 @@ public class DataManager : MonoBehaviour
     {
         GameTime = InitialGameTime;
         Time.timeScale = 1;
+        Lives = playerLives;
         Coins = 0;
         Points = 0;
+        PlayingState = true;
     }
 
     public void EndGame()
